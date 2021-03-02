@@ -1,21 +1,21 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of content_dto;
+part of post_dto;
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<ContentDto> _$contentDtoSerializer = new _$ContentDtoSerializer();
+Serializer<PostDto> _$postDtoSerializer = new _$PostDtoSerializer();
 
-class _$ContentDtoSerializer implements StructuredSerializer<ContentDto> {
+class _$PostDtoSerializer implements StructuredSerializer<PostDto> {
   @override
-  final Iterable<Type> types = const [ContentDto, _$ContentDto];
+  final Iterable<Type> types = const [PostDto, _$PostDto];
   @override
-  final String wireName = 'ContentDto';
+  final String wireName = 'PostDto';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, ContentDto object,
+  Iterable<Object> serialize(Serializers serializers, PostDto object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'id',
@@ -43,9 +43,9 @@ class _$ContentDtoSerializer implements StructuredSerializer<ContentDto> {
   }
 
   @override
-  ContentDto deserialize(Serializers serializers, Iterable<Object> serialized,
+  PostDto deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new ContentDtoBuilder();
+    final result = new PostDtoBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -88,7 +88,7 @@ class _$ContentDtoSerializer implements StructuredSerializer<ContentDto> {
   }
 }
 
-class _$ContentDto extends ContentDto {
+class _$PostDto extends PostDto {
   @override
   final int id;
   @override
@@ -104,10 +104,10 @@ class _$ContentDto extends ContentDto {
   @override
   final String updatedAt;
 
-  factory _$ContentDto([void Function(ContentDtoBuilder) updates]) =>
-      (new ContentDtoBuilder()..update(updates)).build();
+  factory _$PostDto([void Function(PostDtoBuilder) updates]) =>
+      (new PostDtoBuilder()..update(updates)).build();
 
-  _$ContentDto._(
+  _$PostDto._(
       {this.id,
       this.title,
       this.contents,
@@ -117,39 +117,39 @@ class _$ContentDto extends ContentDto {
       this.updatedAt})
       : super._() {
     if (id == null) {
-      throw new BuiltValueNullFieldError('ContentDto', 'id');
+      throw new BuiltValueNullFieldError('PostDto', 'id');
     }
     if (title == null) {
-      throw new BuiltValueNullFieldError('ContentDto', 'title');
+      throw new BuiltValueNullFieldError('PostDto', 'title');
     }
     if (contents == null) {
-      throw new BuiltValueNullFieldError('ContentDto', 'contents');
+      throw new BuiltValueNullFieldError('PostDto', 'contents');
     }
     if (categoryId == null) {
-      throw new BuiltValueNullFieldError('ContentDto', 'categoryId');
+      throw new BuiltValueNullFieldError('PostDto', 'categoryId');
     }
     if (userId == null) {
-      throw new BuiltValueNullFieldError('ContentDto', 'userId');
+      throw new BuiltValueNullFieldError('PostDto', 'userId');
     }
     if (createdAt == null) {
-      throw new BuiltValueNullFieldError('ContentDto', 'createdAt');
+      throw new BuiltValueNullFieldError('PostDto', 'createdAt');
     }
     if (updatedAt == null) {
-      throw new BuiltValueNullFieldError('ContentDto', 'updatedAt');
+      throw new BuiltValueNullFieldError('PostDto', 'updatedAt');
     }
   }
 
   @override
-  ContentDto rebuild(void Function(ContentDtoBuilder) updates) =>
+  PostDto rebuild(void Function(PostDtoBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ContentDtoBuilder toBuilder() => new ContentDtoBuilder()..replace(this);
+  PostDtoBuilder toBuilder() => new PostDtoBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is ContentDto &&
+    return other is PostDto &&
         id == other.id &&
         title == other.title &&
         contents == other.contents &&
@@ -175,7 +175,7 @@ class _$ContentDto extends ContentDto {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('ContentDto')
+    return (newBuiltValueToStringHelper('PostDto')
           ..add('id', id)
           ..add('title', title)
           ..add('contents', contents)
@@ -187,8 +187,8 @@ class _$ContentDto extends ContentDto {
   }
 }
 
-class ContentDtoBuilder implements Builder<ContentDto, ContentDtoBuilder> {
-  _$ContentDto _$v;
+class PostDtoBuilder implements Builder<PostDto, PostDtoBuilder> {
+  _$PostDto _$v;
 
   int _id;
   int get id => _$this._id;
@@ -218,9 +218,9 @@ class ContentDtoBuilder implements Builder<ContentDto, ContentDtoBuilder> {
   String get updatedAt => _$this._updatedAt;
   set updatedAt(String updatedAt) => _$this._updatedAt = updatedAt;
 
-  ContentDtoBuilder();
+  PostDtoBuilder();
 
-  ContentDtoBuilder get _$this {
+  PostDtoBuilder get _$this {
     if (_$v != null) {
       _id = _$v.id;
       _title = _$v.title;
@@ -235,22 +235,22 @@ class ContentDtoBuilder implements Builder<ContentDto, ContentDtoBuilder> {
   }
 
   @override
-  void replace(ContentDto other) {
+  void replace(PostDto other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$ContentDto;
+    _$v = other as _$PostDto;
   }
 
   @override
-  void update(void Function(ContentDtoBuilder) updates) {
+  void update(void Function(PostDtoBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$ContentDto build() {
+  _$PostDto build() {
     final _$result = _$v ??
-        new _$ContentDto._(
+        new _$PostDto._(
             id: id,
             title: title,
             contents: contents,

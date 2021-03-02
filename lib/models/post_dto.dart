@@ -1,4 +1,4 @@
-library content_dto;
+library post_dto;
 
 import 'dart:convert';
 
@@ -6,12 +6,12 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:list_app/models/serializers.dart';
 
-part 'content_dto.g.dart';
+part 'post_dto.g.dart';
 
-abstract class ContentDto implements Built<ContentDto, ContentDtoBuilder> {
-  ContentDto._();
+abstract class PostDto implements Built<PostDto, PostDtoBuilder> {
+  PostDto._();
 
-  factory ContentDto([updates(ContentDtoBuilder b)]) = _$ContentDto;
+  factory PostDto([updates(PostDtoBuilder b)]) = _$PostDto;
 
   @BuiltValueField(wireName: 'id')
   int get id;
@@ -28,13 +28,13 @@ abstract class ContentDto implements Built<ContentDto, ContentDtoBuilder> {
   @BuiltValueField(wireName: 'updated_at')
   String get updatedAt;
   String toJson() {
-    return json.encode(serializers.serializeWith(ContentDto.serializer, this));
+    return json.encode(serializers.serializeWith(PostDto.serializer, this));
   }
 
-  static ContentDto fromJson(String jsonString) {
+  static PostDto fromJson(String jsonString) {
     return serializers.deserializeWith(
-        ContentDto.serializer, json.decode(jsonString));
+        PostDto.serializer, json.decode(jsonString));
   }
 
-  static Serializer<ContentDto> get serializer => _$contentDtoSerializer;
+  static Serializer<PostDto> get serializer => _$postDtoSerializer;
 }

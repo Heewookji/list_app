@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:list_app/providers/auth_provider.dart';
+import 'package:list_app/screens/list_screen.dart';
+import 'package:list_app/screens/login_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -7,26 +11,27 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'listApp',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("init"),
-      ),
-      body: Center(
-        child: Text('init'),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => AuthProvider(),
+        ),
+      ],
+      child: Consumer<AuthProvider>(
+        builder: (ctx, auth, _) => MaterialApp(
+          title: 'listApp',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
+          home: auth.isAuth
+              ? ListScreen()
+              : FutureBuilder(
+                  future: auth.autoLogin(),
+                  builder: (ctx, resultSnapshot) => LoginScreen(),
+                ),
+        ),
       ),
     );
   }

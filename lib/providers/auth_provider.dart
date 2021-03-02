@@ -25,11 +25,10 @@ class AuthProvider with ChangeNotifier {
     await Future.delayed(Duration(seconds: 1));
     _userId = userId;
     _expiryDate = DateTime.now().add(
-      Duration(seconds: 60),
+      Duration(seconds: 600),
     );
     _setAutoLogoutTimer();
     notifyListeners();
-    //device storage에서 data 가져옴
     final prefs = await SharedPreferences.getInstance();
     final userData = json.encode(
       {'userId': _userId, 'expiryDate': _expiryDate.toIso8601String()},

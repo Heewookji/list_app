@@ -1,34 +1,32 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of post_dto;
+part of reply_dto;
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<PostDto> _$postDtoSerializer = new _$PostDtoSerializer();
+Serializer<ReplyDto> _$replyDtoSerializer = new _$ReplyDtoSerializer();
 
-class _$PostDtoSerializer implements StructuredSerializer<PostDto> {
+class _$ReplyDtoSerializer implements StructuredSerializer<ReplyDto> {
   @override
-  final Iterable<Type> types = const [PostDto, _$PostDto];
+  final Iterable<Type> types = const [ReplyDto, _$ReplyDto];
   @override
-  final String wireName = 'PostDto';
+  final String wireName = 'ReplyDto';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, PostDto object,
+  Iterable<Object> serialize(Serializers serializers, ReplyDto object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
       'id',
       serializers.serialize(object.id, specifiedType: const FullType(int)),
-      'title',
-      serializers.serialize(object.title,
-          specifiedType: const FullType(String)),
+      'user_id',
+      serializers.serialize(object.userId, specifiedType: const FullType(int)),
+      'parent',
+      serializers.serialize(object.parent, specifiedType: const FullType(int)),
       'contents',
       serializers.serialize(object.contents,
           specifiedType: const FullType(String)),
-      'category',
-      serializers.serialize(object.category,
-          specifiedType: const FullType(CategoryDto)),
       'created_at',
       serializers.serialize(object.createdAt,
           specifiedType: const FullType(String)),
@@ -38,19 +36,15 @@ class _$PostDtoSerializer implements StructuredSerializer<PostDto> {
       'user',
       serializers.serialize(object.user,
           specifiedType: const FullType(UserDto)),
-      'reply',
-      serializers.serialize(object.reply,
-          specifiedType:
-              const FullType(BuiltList, const [const FullType(ReplyDto)])),
     ];
 
     return result;
   }
 
   @override
-  PostDto deserialize(Serializers serializers, Iterable<Object> serialized,
+  ReplyDto deserialize(Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new PostDtoBuilder();
+    final result = new ReplyDtoBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -62,17 +56,17 @@ class _$PostDtoSerializer implements StructuredSerializer<PostDto> {
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
-        case 'title':
-          result.title = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+        case 'user_id':
+          result.userId = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'parent':
+          result.parent = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
           break;
         case 'contents':
           result.contents = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
-          break;
-        case 'category':
-          result.category.replace(serializers.deserialize(value,
-              specifiedType: const FullType(CategoryDto)) as CategoryDto);
           break;
         case 'created_at':
           result.createdAt = serializers.deserialize(value,
@@ -86,12 +80,6 @@ class _$PostDtoSerializer implements StructuredSerializer<PostDto> {
           result.user.replace(serializers.deserialize(value,
               specifiedType: const FullType(UserDto)) as UserDto);
           break;
-        case 'reply':
-          result.reply.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(ReplyDto)]))
-              as BuiltList<Object>);
-          break;
       }
     }
 
@@ -99,82 +87,75 @@ class _$PostDtoSerializer implements StructuredSerializer<PostDto> {
   }
 }
 
-class _$PostDto extends PostDto {
+class _$ReplyDto extends ReplyDto {
   @override
   final int id;
   @override
-  final String title;
+  final int userId;
+  @override
+  final int parent;
   @override
   final String contents;
-  @override
-  final CategoryDto category;
   @override
   final String createdAt;
   @override
   final String updatedAt;
   @override
   final UserDto user;
-  @override
-  final BuiltList<ReplyDto> reply;
 
-  factory _$PostDto([void Function(PostDtoBuilder) updates]) =>
-      (new PostDtoBuilder()..update(updates)).build();
+  factory _$ReplyDto([void Function(ReplyDtoBuilder) updates]) =>
+      (new ReplyDtoBuilder()..update(updates)).build();
 
-  _$PostDto._(
+  _$ReplyDto._(
       {this.id,
-      this.title,
+      this.userId,
+      this.parent,
       this.contents,
-      this.category,
       this.createdAt,
       this.updatedAt,
-      this.user,
-      this.reply})
+      this.user})
       : super._() {
     if (id == null) {
-      throw new BuiltValueNullFieldError('PostDto', 'id');
+      throw new BuiltValueNullFieldError('ReplyDto', 'id');
     }
-    if (title == null) {
-      throw new BuiltValueNullFieldError('PostDto', 'title');
+    if (userId == null) {
+      throw new BuiltValueNullFieldError('ReplyDto', 'userId');
+    }
+    if (parent == null) {
+      throw new BuiltValueNullFieldError('ReplyDto', 'parent');
     }
     if (contents == null) {
-      throw new BuiltValueNullFieldError('PostDto', 'contents');
-    }
-    if (category == null) {
-      throw new BuiltValueNullFieldError('PostDto', 'category');
+      throw new BuiltValueNullFieldError('ReplyDto', 'contents');
     }
     if (createdAt == null) {
-      throw new BuiltValueNullFieldError('PostDto', 'createdAt');
+      throw new BuiltValueNullFieldError('ReplyDto', 'createdAt');
     }
     if (updatedAt == null) {
-      throw new BuiltValueNullFieldError('PostDto', 'updatedAt');
+      throw new BuiltValueNullFieldError('ReplyDto', 'updatedAt');
     }
     if (user == null) {
-      throw new BuiltValueNullFieldError('PostDto', 'user');
-    }
-    if (reply == null) {
-      throw new BuiltValueNullFieldError('PostDto', 'reply');
+      throw new BuiltValueNullFieldError('ReplyDto', 'user');
     }
   }
 
   @override
-  PostDto rebuild(void Function(PostDtoBuilder) updates) =>
+  ReplyDto rebuild(void Function(ReplyDtoBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  PostDtoBuilder toBuilder() => new PostDtoBuilder()..replace(this);
+  ReplyDtoBuilder toBuilder() => new ReplyDtoBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is PostDto &&
+    return other is ReplyDto &&
         id == other.id &&
-        title == other.title &&
+        userId == other.userId &&
+        parent == other.parent &&
         contents == other.contents &&
-        category == other.category &&
         createdAt == other.createdAt &&
         updatedAt == other.updatedAt &&
-        user == other.user &&
-        reply == other.reply;
+        user == other.user;
   }
 
   @override
@@ -183,50 +164,46 @@ class _$PostDto extends PostDto {
         $jc(
             $jc(
                 $jc(
-                    $jc(
-                        $jc($jc($jc(0, id.hashCode), title.hashCode),
-                            contents.hashCode),
-                        category.hashCode),
-                    createdAt.hashCode),
-                updatedAt.hashCode),
-            user.hashCode),
-        reply.hashCode));
+                    $jc($jc($jc(0, id.hashCode), userId.hashCode),
+                        parent.hashCode),
+                    contents.hashCode),
+                createdAt.hashCode),
+            updatedAt.hashCode),
+        user.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('PostDto')
+    return (newBuiltValueToStringHelper('ReplyDto')
           ..add('id', id)
-          ..add('title', title)
+          ..add('userId', userId)
+          ..add('parent', parent)
           ..add('contents', contents)
-          ..add('category', category)
           ..add('createdAt', createdAt)
           ..add('updatedAt', updatedAt)
-          ..add('user', user)
-          ..add('reply', reply))
+          ..add('user', user))
         .toString();
   }
 }
 
-class PostDtoBuilder implements Builder<PostDto, PostDtoBuilder> {
-  _$PostDto _$v;
+class ReplyDtoBuilder implements Builder<ReplyDto, ReplyDtoBuilder> {
+  _$ReplyDto _$v;
 
   int _id;
   int get id => _$this._id;
   set id(int id) => _$this._id = id;
 
-  String _title;
-  String get title => _$this._title;
-  set title(String title) => _$this._title = title;
+  int _userId;
+  int get userId => _$this._userId;
+  set userId(int userId) => _$this._userId = userId;
+
+  int _parent;
+  int get parent => _$this._parent;
+  set parent(int parent) => _$this._parent = parent;
 
   String _contents;
   String get contents => _$this._contents;
   set contents(String contents) => _$this._contents = contents;
-
-  CategoryDtoBuilder _category;
-  CategoryDtoBuilder get category =>
-      _$this._category ??= new CategoryDtoBuilder();
-  set category(CategoryDtoBuilder category) => _$this._category = category;
 
   String _createdAt;
   String get createdAt => _$this._createdAt;
@@ -240,68 +217,56 @@ class PostDtoBuilder implements Builder<PostDto, PostDtoBuilder> {
   UserDtoBuilder get user => _$this._user ??= new UserDtoBuilder();
   set user(UserDtoBuilder user) => _$this._user = user;
 
-  ListBuilder<ReplyDto> _reply;
-  ListBuilder<ReplyDto> get reply =>
-      _$this._reply ??= new ListBuilder<ReplyDto>();
-  set reply(ListBuilder<ReplyDto> reply) => _$this._reply = reply;
+  ReplyDtoBuilder();
 
-  PostDtoBuilder();
-
-  PostDtoBuilder get _$this {
+  ReplyDtoBuilder get _$this {
     if (_$v != null) {
       _id = _$v.id;
-      _title = _$v.title;
+      _userId = _$v.userId;
+      _parent = _$v.parent;
       _contents = _$v.contents;
-      _category = _$v.category?.toBuilder();
       _createdAt = _$v.createdAt;
       _updatedAt = _$v.updatedAt;
       _user = _$v.user?.toBuilder();
-      _reply = _$v.reply?.toBuilder();
       _$v = null;
     }
     return this;
   }
 
   @override
-  void replace(PostDto other) {
+  void replace(ReplyDto other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$PostDto;
+    _$v = other as _$ReplyDto;
   }
 
   @override
-  void update(void Function(PostDtoBuilder) updates) {
+  void update(void Function(ReplyDtoBuilder) updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$PostDto build() {
-    _$PostDto _$result;
+  _$ReplyDto build() {
+    _$ReplyDto _$result;
     try {
       _$result = _$v ??
-          new _$PostDto._(
+          new _$ReplyDto._(
               id: id,
-              title: title,
+              userId: userId,
+              parent: parent,
               contents: contents,
-              category: category.build(),
               createdAt: createdAt,
               updatedAt: updatedAt,
-              user: user.build(),
-              reply: reply.build());
+              user: user.build());
     } catch (_) {
       String _$failedField;
       try {
-        _$failedField = 'category';
-        category.build();
-
         _$failedField = 'user';
         user.build();
-        _$failedField = 'reply';
-        reply.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'PostDto', _$failedField, e.toString());
+            'ReplyDto', _$failedField, e.toString());
       }
       rethrow;
     }

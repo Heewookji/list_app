@@ -30,8 +30,12 @@ class _ListScreenState extends State<ListScreen> {
     try {
       await Provider.of<PostsProvider>(context, listen: false)
           .fetchAndSetPosts();
-      _isLoading = false;
-    } catch (error) {}
+      setState(() {
+        _isLoading = false;
+      });
+    } catch (error) {
+      print(error);
+    }
   }
 
   @override
@@ -55,7 +59,11 @@ class _ListScreenState extends State<ListScreen> {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: _screenSize.width * 0.04),
-        child: _buildPostList(),
+        child: _isLoading
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : _buildPostList(),
       ),
     );
   }
@@ -121,12 +129,13 @@ class _ListScreenState extends State<ListScreen> {
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                post.categoryId.toString(),
+                post.category.name,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -137,19 +146,12 @@ class _ListScreenState extends State<ListScreen> {
               ),
             ],
           ),
-          Row(
-            children: [
-              Text(
-                post.userId.toString() + '  |  ',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              Text(
+          Text(
+            post.user.email +
+                '  |  ' +
                 DateFormat('yyyy-MM-dd').format(DateTime.parse(post.createdAt)),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ],
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
           Divider(),
           Text(

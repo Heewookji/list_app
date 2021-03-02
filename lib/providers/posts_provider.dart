@@ -13,11 +13,11 @@ enum Category {
 }
 
 class PostsProvider extends ChangeNotifier {
-  final Category category;
+  final Category _category;
   int _nowPage = 0;
   List<PostDto> _posts = [];
 
-  PostsProvider(this.category);
+  PostsProvider(this._category);
 
   UnmodifiableListView<PostDto> get posts => UnmodifiableListView(_posts);
 
@@ -27,7 +27,7 @@ class PostsProvider extends ChangeNotifier {
     final response = await http.get(url);
     Map<String, dynamic> responseMap = json.decode(response.body);
     _nowPage = responseMap['current_page'];
-    _posts = await _fetchPostsWithDetail(responseMap);
+    _posts = await _getPostsWithDetail(responseMap);
     notifyListeners();
   }
 
@@ -37,11 +37,11 @@ class PostsProvider extends ChangeNotifier {
     final response = await http.get(url);
     Map<String, dynamic> responseMap = json.decode(response.body);
     _nowPage = responseMap['current_page'];
-    _posts.addAll(await _fetchPostsWithDetail(responseMap));
+    _posts.addAll(await _getPostsWithDetail(responseMap));
     notifyListeners();
   }
 
-  Future<List<PostDto>> _fetchPostsWithDetail(
+  Future<List<PostDto>> _getPostsWithDetail(
       Map<String, dynamic> responseMap) async {
     return await Future.wait(
         (responseMap['data'] as List<dynamic>).map((dataMap) async {

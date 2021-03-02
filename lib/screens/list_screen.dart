@@ -5,8 +5,6 @@ import 'package:list_app/providers/posts_provider.dart';
 import 'package:provider/provider.dart';
 
 class ListScreen extends StatefulWidget {
-  ListScreen({Key key}) : super(key: key);
-
   @override
   _ListScreenState createState() => _ListScreenState();
 }
@@ -24,12 +22,6 @@ class _ListScreenState extends State<ListScreen> {
       _isLoading = true;
     });
     _doFutureInit();
-  }
-
-  @override
-  void dispose() {
-    print('dispose');
-    super.dispose();
   }
 
   Future<void> _doFutureInit() async {
@@ -83,9 +75,7 @@ class _ListScreenState extends State<ListScreen> {
                 itemBuilder: (ctx, i) {
                   if (i == provider.posts.length)
                     return _isScrollLoading
-                        ? Center(
-                            child: CircularProgressIndicator(),
-                          )
+                        ? Center(child: CircularProgressIndicator())
                         : Container();
                   final post = provider.posts[i];
                   return Column(

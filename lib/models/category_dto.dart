@@ -17,10 +17,13 @@ abstract class CategoryDto implements Built<CategoryDto, CategoryDtoBuilder> {
   int get id;
   @BuiltValueField(wireName: 'name')
   String get name;
+  @nullable
   @BuiltValueField(wireName: 'created_at')
   String get createdAt;
+  @nullable
   @BuiltValueField(wireName: 'updated_at')
   String get updatedAt;
+
   String toJson() {
     return json.encode(serializers.serializeWith(CategoryDto.serializer, this));
   }

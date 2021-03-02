@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:list_app/models/post_dto.dart';
-import 'package:list_app/providers/auth_provider.dart';
 import 'package:list_app/providers/posts_provider.dart';
 import 'package:provider/provider.dart';
 
 class ListScreen extends StatefulWidget {
+  ListScreen({Key key}) : super(key: key);
+
   @override
   _ListScreenState createState() => _ListScreenState();
 }
@@ -13,7 +14,6 @@ class ListScreen extends StatefulWidget {
 class _ListScreenState extends State<ListScreen> {
   bool _isLoading = false;
   bool _isScrollLoading = false;
-  AuthProvider _auth;
   ThemeData _theme;
   Size _screenSize;
 
@@ -24,6 +24,12 @@ class _ListScreenState extends State<ListScreen> {
       _isLoading = true;
     });
     _doFutureInit();
+  }
+
+  @override
+  void dispose() {
+    print('dispose');
+    super.dispose();
   }
 
   Future<void> _doFutureInit() async {
@@ -40,31 +46,15 @@ class _ListScreenState extends State<ListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _auth = Provider.of<AuthProvider>(context, listen: false);
     _theme = Theme.of(context);
     _screenSize = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        title: Text(
-          '${_auth.userId}님 안녕하세요.',
-          overflow: TextOverflow.ellipsis,
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.logout),
-            onPressed: () => _auth.logout(),
-          ),
-        ],
-      ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: _screenSize.width * 0.04),
-        child: _isLoading
-            ? Center(
-                child: CircularProgressIndicator(),
-              )
-            : _buildPostList(),
-      ),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: _screenSize.width * 0.04),
+      child: _isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : _buildPostList(),
     );
   }
 

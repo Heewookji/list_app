@@ -6,9 +6,18 @@ import 'package:http/http.dart' as http;
 import 'package:list_app/models/post_dto.dart';
 import 'package:list_app/models/serializers.dart';
 
+enum Category {
+  apple,
+  banana,
+  coconut,
+}
+
 class PostsProvider extends ChangeNotifier {
+  final Category category;
   int _nowPage = 0;
   List<PostDto> _posts = [];
+
+  PostsProvider(this.category);
 
   UnmodifiableListView<PostDto> get posts => UnmodifiableListView(_posts);
 
@@ -18,7 +27,7 @@ class PostsProvider extends ChangeNotifier {
     final response = await http.get(url);
     Map<String, dynamic> responseMap = json.decode(response.body);
     _nowPage = responseMap['current_page'];
-    _posts = await _fetchPost(responseMap);
+    _posts = await _fetchPostsWithDetail(responseMap);
     notifyListeners();
   }
 
@@ -28,11 +37,12 @@ class PostsProvider extends ChangeNotifier {
     final response = await http.get(url);
     Map<String, dynamic> responseMap = json.decode(response.body);
     _nowPage = responseMap['current_page'];
-    _posts.addAll(await _fetchPost(responseMap));
+    _posts.addAll(await _fetchPostsWithDetail(responseMap));
     notifyListeners();
   }
 
-  Future<List<PostDto>> _fetchPost(Map<String, dynamic> responseMap) async {
+  Future<List<PostDto>> _fetchPostsWithDetail(
+      Map<String, dynamic> responseMap) async {
     return await Future.wait(
         (responseMap['data'] as List<dynamic>).map((dataMap) async {
       String detailUrl =

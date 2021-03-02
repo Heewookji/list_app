@@ -22,14 +22,19 @@ class _$CategoryDtoSerializer implements StructuredSerializer<CategoryDto> {
       serializers.serialize(object.id, specifiedType: const FullType(int)),
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
-      'created_at',
-      serializers.serialize(object.createdAt,
-          specifiedType: const FullType(String)),
-      'updated_at',
-      serializers.serialize(object.updatedAt,
-          specifiedType: const FullType(String)),
     ];
-
+    if (object.createdAt != null) {
+      result
+        ..add('created_at')
+        ..add(serializers.serialize(object.createdAt,
+            specifiedType: const FullType(String)));
+    }
+    if (object.updatedAt != null) {
+      result
+        ..add('updated_at')
+        ..add(serializers.serialize(object.updatedAt,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -87,12 +92,6 @@ class _$CategoryDto extends CategoryDto {
     }
     if (name == null) {
       throw new BuiltValueNullFieldError('CategoryDto', 'name');
-    }
-    if (createdAt == null) {
-      throw new BuiltValueNullFieldError('CategoryDto', 'createdAt');
-    }
-    if (updatedAt == null) {
-      throw new BuiltValueNullFieldError('CategoryDto', 'updatedAt');
     }
   }
 

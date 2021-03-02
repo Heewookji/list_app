@@ -12,6 +12,7 @@ class ListScreen extends StatefulWidget {
 
 class _ListScreenState extends State<ListScreen> {
   bool _isLoading = false;
+  bool _isScrollLoading = false;
   AuthProvider _auth;
   ThemeData _theme;
   Size _screenSize;
@@ -65,16 +66,37 @@ class _ListScreenState extends State<ListScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: ListView.builder(
-              itemCount: provider.posts.length,
-              itemBuilder: (ctx, i) {
-                final post = provider.posts[i];
-                return Column(
-                  children: [
-                    _buildPost(post),
-                  ],
-                );
+            child: NotificationListener<ScrollNotification>(
+              onNotification: (ScrollNotification scrollInfo) {
+                if (!_isScrollLoading &&
+                    scrollInfo.metrics.pixels ==
+                        scrollInfo.metrics.maxScrollExtent) {
+                  setState(() {
+                    _isScrollLoading = true;
+                  });
+                  provider
+                      .fetchAndSetNextPosts()
+                      .then((value) => _isScrollLoading = false);
+                }
+                return true;
               },
+              child: ListView.builder(
+                itemCount: provider.posts.length + 1,
+                itemBuilder: (ctx, i) {
+                  if (i == provider.posts.length)
+                    return _isScrollLoading
+                        ? Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : Container();
+                  final post = provider.posts[i];
+                  return Column(
+                    children: [
+                      _buildPost(post),
+                    ],
+                  );
+                },
+              ),
             ),
           ),
         ],

@@ -7,6 +7,7 @@ part of 'serializers.dart';
 // **************************************************************************
 
 Serializers _$serializers = (new Serializers().toBuilder()
+      ..add(AdsDto.serializer)
       ..add(CategoryDto.serializer)
       ..add(PostDto.serializer)
       ..add(ReplyDto.serializer)

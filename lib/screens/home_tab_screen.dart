@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:list_app/providers/auth_provider.dart';
-import 'package:list_app/providers/posts_provider.dart';
+import 'package:list_app/providers/posts_with_ads_provider.dart';
 import 'package:list_app/screens/list_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -27,17 +27,17 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
     _pages = [
       ChangeNotifierProvider(
         key: ValueKey(_categories[0]),
-        create: (ctx) => PostsProvider(_categories[0]),
+        create: (ctx) => PostsWithAdsProvider(_categories[0]),
         child: ListScreen(),
       ),
       ChangeNotifierProvider(
         key: ValueKey(_categories[1]),
-        create: (ctx) => PostsProvider(_categories[1]),
+        create: (ctx) => PostsWithAdsProvider(_categories[1]),
         child: ListScreen(),
       ),
       ChangeNotifierProvider(
         key: ValueKey(_categories[2]),
-        create: (ctx) => PostsProvider(_categories[2]),
+        create: (ctx) => PostsWithAdsProvider(_categories[2]),
         child: ListScreen(),
       ),
     ];

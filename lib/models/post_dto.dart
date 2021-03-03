@@ -10,9 +10,11 @@ import 'package:list_app/models/reply_dto.dart';
 import 'package:list_app/models/serializers.dart';
 import 'package:list_app/models/user_dto.dart';
 
+import 'content_dto.dart';
+
 part 'post_dto.g.dart';
 
-abstract class PostDto implements Built<PostDto, PostDtoBuilder> {
+abstract class PostDto implements Built<PostDto, PostDtoBuilder>, ContentDto {
   PostDto._();
 
   factory PostDto([updates(PostDtoBuilder b)]) = _$PostDto;

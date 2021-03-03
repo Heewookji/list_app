@@ -114,18 +114,11 @@ class _ListScreenState extends State<ListScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                post.category.name,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              Text(
-                post.id.toString(),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
+              Text(post.category.name),
+              Text(post.id.toString()),
             ],
           ),
+          Divider(color: Colors.black45),
           Text(
             post.user.email +
                 '  |  ' +
@@ -133,7 +126,6 @@ class _ListScreenState extends State<ListScreen> {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
-          Divider(),
           Text(
             post.title,
             maxLines: 1,

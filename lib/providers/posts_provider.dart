@@ -23,7 +23,7 @@ class PostsProvider extends ChangeNotifier {
 
   Future<void> fetchAndSetPosts() async {
     String url =
-        'https://problem.comento.kr/api/list?page=0&ord=desc&limit=10&category[0]=1';
+        'https://problem.comento.kr/api/list?page=0&ord=desc&limit=10&category[0]=${_category.index + 1}';
     final response = await http.get(url);
     Map<String, dynamic> responseMap = json.decode(response.body);
     _nowPage = responseMap['current_page'];
@@ -33,7 +33,7 @@ class PostsProvider extends ChangeNotifier {
 
   Future<void> fetchAndSetNextPosts() async {
     String url =
-        'https://problem.comento.kr/api/list?page=${_nowPage + 1}&ord=desc&limit=10&category[0]=1';
+        'https://problem.comento.kr/api/list?page=${_nowPage + 1}&ord=desc&limit=10&category[0]=${_category.index + 1}';
     final response = await http.get(url);
     Map<String, dynamic> responseMap = json.decode(response.body);
     _nowPage = responseMap['current_page'];

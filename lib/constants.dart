@@ -3,4 +3,5 @@ class Constants {
   static const int postLimit = 10;
   static const int adsLimit = 10;
   static const int adsInterval = 4;
+  static const String imgBaseUrl = 'https://cdn.comento.kr/assignment/';
 }

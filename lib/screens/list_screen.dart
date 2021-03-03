@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:list_app/constants.dart';
 import 'package:list_app/models/ads_dto.dart';
 import 'package:list_app/models/post_dto.dart';
 import 'package:list_app/providers/posts_with_ads_provider.dart';
@@ -120,18 +121,33 @@ class _ListScreenState extends State<ListScreen> {
           Text('Sponsored'),
           Row(
             children: [
+              SizedBox(
+                width: _screenSize.width * 0.5,
+                height: _screenSize.width * 0.4,
+                child: Image.network(
+                  Constants.imgBaseUrl + ads.img,
+                  fit: BoxFit.cover,
+                ),
+              ),
               Column(
                 children: [
-                  Text(
-                    ads.id.toString(),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
+                  SizedBox(
+                    width: _screenSize.width * 0.36,
+                    child: Text(
+                      ads.title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
-//                  Text(
-//                    ads.contents,
-//                    maxLines: 4,
-//                    overflow: TextOverflow.ellipsis,
-//                  ),
+                  SizedBox(height: _screenSize.height * 0.01),
+                  SizedBox(
+                    width: _screenSize.width * 0.36,
+                    child: Text(
+                      ads.contents,
+                      maxLines: 4,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                 ],
               ),
             ],

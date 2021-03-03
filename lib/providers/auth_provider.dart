@@ -25,7 +25,7 @@ class AuthProvider with ChangeNotifier {
     await Future.delayed(Duration(seconds: 1));
     _userId = userId;
     _expiryDate = DateTime.now().add(
-      Duration(seconds: 600),
+      Duration(days: 1),
     );
     _setAutoLogoutTimer();
     notifyListeners();

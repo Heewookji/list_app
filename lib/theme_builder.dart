@@ -9,6 +9,8 @@ class ThemeBuilder {
           TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
         },
       ),
+      primaryColor: Colors.green,
+      accentColor: Colors.green,
       fontFamily: 'NanumSquareRound',
       textTheme: TextTheme(
         headline6: TextStyle(

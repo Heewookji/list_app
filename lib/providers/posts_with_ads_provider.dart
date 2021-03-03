@@ -18,6 +18,7 @@ enum Category {
 class PostsWithAdsProvider extends ChangeNotifier {
   final Category _category;
   int _postCurrentPage = 0;
+  int _postLastPage = 0;
   int _adsCurrentPage = 0;
   List<PostDto> _posts = [];
   List<AdsDto> _ads = [];
@@ -36,6 +37,7 @@ class PostsWithAdsProvider extends ChangeNotifier {
   }
 
   Future<void> setNextContents() async {
+    if (_postCurrentPage == _postLastPage) return;
     await _fetchAndSetNextPosts();
     await _fetchAndSetNextAdsByPostLength();
     _contents = _calculateContentList();
@@ -48,7 +50,7 @@ class PostsWithAdsProvider extends ChangeNotifier {
         i < _posts.length + (_posts.length / Constants.adsInterval).floor();
         i++) {
       final adsCount = ((i + 1) / (Constants.adsInterval + 1)).floor();
-      print('i : $i  postCount : ${i - adsCount}  adsCount : $adsCount ');
+//      print('i : $i  postCount : ${i - adsCount}  adsCount : $adsCount ');
       if (i == 0 || (i + 1) % (Constants.adsInterval + 1) != 0) {
         newContents.add(_posts[i - adsCount]);
         continue;
@@ -65,6 +67,7 @@ class PostsWithAdsProvider extends ChangeNotifier {
     final response = await http.get(url);
     Map<String, dynamic> responseMap = json.decode(response.body);
     _postCurrentPage = responseMap['current_page'];
+    _postLastPage = responseMap['last_page'];
     _posts = await _getPostsWithDetail(responseMap['data']);
   }
 
@@ -88,6 +91,7 @@ class PostsWithAdsProvider extends ChangeNotifier {
     final response = await http.get(url);
     Map<String, dynamic> responseMap = json.decode(response.body);
     _postCurrentPage = responseMap['current_page'];
+    _postLastPage = responseMap['last_page'];
     _posts.addAll(await _getPostsWithDetail(responseMap['data']));
   }
 

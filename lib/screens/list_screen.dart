@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:list_app/constants.dart';
@@ -6,6 +7,7 @@ import 'package:list_app/models/post_dto.dart';
 import 'package:list_app/providers/posts_with_ads_provider.dart';
 import 'package:list_app/screens/detail_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ListScreen extends StatefulWidget {
   @override
@@ -13,8 +15,9 @@ class ListScreen extends StatefulWidget {
 }
 
 class _ListScreenState extends State<ListScreen> {
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
   bool _isLoading = false;
-  bool _isScrollLoading = false;
   ThemeData _theme;
   Size _screenSize;
 
@@ -42,20 +45,9 @@ class _ListScreenState extends State<ListScreen> {
     }
   }
 
-  bool _fetchNextByScroll(ScrollNotification scrollInfo,
-      PostsWithAdsProvider postsWithAdsProvider) {
-    if (!_isScrollLoading &&
-        scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
-      setState(() {
-        _isScrollLoading = true;
-      });
-      postsWithAdsProvider.setNextContents().then(
-            (value) => setState(() {
-              _isScrollLoading = false;
-            }),
-          );
-    }
-    return true;
+  Future<void> _onLoading(PostsWithAdsProvider postsWithAdsProvider) async {
+    await postsWithAdsProvider.setNextContents();
+    _refreshController.loadComplete();
   }
 
   void _navigateToDetailScreen(PostDto post) {
@@ -85,17 +77,19 @@ class _ListScreenState extends State<ListScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: NotificationListener<ScrollNotification>(
-              onNotification: (ScrollNotification scrollInfo) =>
-                  _fetchNextByScroll(scrollInfo, postsWithAdsProvider),
+            child: SmartRefresher(
+              controller: _refreshController,
+              enablePullUp: true,
+              enablePullDown: false,
+              onLoading: () => _onLoading(postsWithAdsProvider),
+              footer: ClassicFooter(
+                loadStyle: LoadStyle.ShowWhenLoading,
+                completeDuration: Duration(milliseconds: 500),
+              ),
               child: ListView.builder(
                 physics: BouncingScrollPhysics(),
-                itemCount: postsWithAdsProvider.contents.length + 1,
+                itemCount: postsWithAdsProvider.contents.length,
                 itemBuilder: (ctx, i) {
-                  if (i == postsWithAdsProvider.contents.length)
-                    return _isScrollLoading
-                        ? Center(child: CircularProgressIndicator())
-                        : Container();
                   final content = postsWithAdsProvider.contents[i];
                   if (content is AdsDto) return _buildAds(content);
                   return _buildPost(content);

@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
                     return resultSnapshot.connectionState ==
                             ConnectionState.waiting
                         ? Scaffold(
+                            appBar: AppBar(),
                             body: Center(child: CircularProgressIndicator()))
                         : LoginScreen();
                   },

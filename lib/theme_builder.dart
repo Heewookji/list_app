@@ -9,6 +9,11 @@ class ThemeBuilder {
           TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
         },
       ),
+      appBarTheme: AppBarTheme(
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
+      ),
       primaryColor: Colors.green,
       accentColor: Colors.green,
       fontFamily: 'NanumSquareRound',

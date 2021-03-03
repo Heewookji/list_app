@@ -23,6 +23,7 @@ class DetailScreen extends StatelessWidget {
             horizontal: _screenSize.width * Constants.bodyWidthPadding),
         child: SafeArea(
           child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
             child: Column(
               children: [
                 Text(post.title),

@@ -5,22 +5,38 @@ import 'package:list_app/providers/posts_with_ads_provider.dart';
 import 'package:list_app/widgets/list_screen/content_list.dart';
 import 'package:provider/provider.dart';
 
-class ListScreen extends StatelessWidget {
+class ListScreen extends StatefulWidget {
+  @override
+  _ListScreenState createState() => _ListScreenState();
+}
+
+class _ListScreenState extends State<ListScreen> {
+  bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _isLoading = true;
+    });
+    Provider.of<PostsWithAdsProvider>(context, listen: false)
+        .setContents()
+        .then(
+          (_) => setState(() {
+            _isLoading = false;
+          }),
+        );
+  }
+
   @override
   Widget build(BuildContext context) {
     final _screenSize = MediaQuery.of(context).size;
     return Padding(
       padding: EdgeInsets.symmetric(
           horizontal: _screenSize.width * Constants.bodyWidthPadding),
-      child: FutureBuilder<void>(
-        future: Provider.of<PostsWithAdsProvider>(context, listen: false)
-            .setContents(),
-        builder: (ctx, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting)
-            return Center(child: CircularProgressIndicator());
-          return ContentList();
-        },
-      ),
+      child: _isLoading
+          ? Center(child: CircularProgressIndicator())
+          : ContentList(),
     );
   }
 }

@@ -50,7 +50,6 @@ class PostsWithAdsProvider extends ChangeNotifier {
         i < _posts.length + (_posts.length / Constants.adsInterval).floor();
         i++) {
       final adsCount = ((i + 1) / (Constants.adsInterval + 1)).floor();
-//      print('i : $i  postCount : ${i - adsCount}  adsCount : $adsCount ');
       if (i == 0 || (i + 1) % (Constants.adsInterval + 1) != 0) {
         newContents.add(_posts[i - adsCount]);
         continue;

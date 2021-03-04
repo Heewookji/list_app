@@ -14,6 +14,7 @@ class ThemeBuilder {
           color: Colors.white,
         ),
       ),
+      canvasColor: Colors.white,
       primaryColor: Colors.green,
       accentColor: Colors.green,
       fontFamily: 'NanumSquareRound',

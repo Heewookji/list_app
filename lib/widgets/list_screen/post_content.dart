@@ -38,7 +38,7 @@ class PostContent extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildHeader(_theme),
-            Divider(color: Colors.black45),
+            Divider(color: Colors.black26),
             _buildEmailAndDate(_theme),
             SizedBox(
               height: _screenSize.height * 0.01,

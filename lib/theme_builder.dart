@@ -43,7 +43,7 @@ class ThemeBuilder {
           color: Colors.black,
         ),
         bodyText2: TextStyle(
-          fontSize: 16,
+          fontSize: 14,
           fontWeight: FontWeight.w700,
           height: 1.4,
           color: Colors.black,
@@ -52,7 +52,7 @@ class ThemeBuilder {
           fontSize: 12,
           fontWeight: FontWeight.w700,
           height: 1.4,
-          color: Colors.black,
+          color: Colors.black45,
         ),
         button: TextStyle(
           fontSize: 14,

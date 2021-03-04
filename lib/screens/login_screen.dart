@@ -54,7 +54,9 @@ class _LoginScreenState extends State<LoginScreen> {
             padding: EdgeInsets.symmetric(
                 horizontal: _screenSize.width * Constants.bodyWidthPadding),
             child: Container(
-              height: _screenSize.height * 0.3,
+              height: 240 > _screenSize.height * 0.3
+                  ? 240
+                  : _screenSize.height * 0.3,
               padding: EdgeInsets.all(_screenSize.width * 0.08),
               decoration: BoxDecoration(
                 color: Colors.white,

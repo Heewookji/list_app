@@ -18,9 +18,20 @@ class ContentList extends StatelessWidget {
     );
   }
 
-  Future<void> _onLoading(PostsWithAdsProvider postsWithAdsProvider) async {
-    await postsWithAdsProvider.setNextContents();
-    _refreshController.loadComplete();
+  Future<void> _onLoading(
+      BuildContext context, PostsWithAdsProvider postsWithAdsProvider) async {
+    try {
+      await postsWithAdsProvider.setNextContents();
+    } on Exception catch (error) {
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text(error.toString()),
+          duration: Duration(milliseconds: 300),
+        ),
+      );
+    } finally {
+      _refreshController.loadComplete();
+    }
   }
 
   @override
@@ -34,7 +45,7 @@ class ContentList extends StatelessWidget {
               controller: _refreshController,
               enablePullUp: true,
               enablePullDown: false,
-              onLoading: () => _onLoading(postsWithAdsProvider),
+              onLoading: () => _onLoading(context, postsWithAdsProvider),
               footer: ClassicFooter(
                 loadStyle: LoadStyle.ShowWhenLoading,
                 completeDuration: Duration(milliseconds: 500),

@@ -12,20 +12,31 @@ class ListScreen extends StatefulWidget {
 
 class _ListScreenState extends State<ListScreen> {
   bool _isLoading = false;
-
   @override
   void initState() {
     super.initState();
     setState(() {
       _isLoading = true;
     });
-    Provider.of<PostsWithAdsProvider>(context, listen: false)
-        .setContents()
-        .then(
-          (_) => setState(() {
-            _isLoading = false;
-          }),
-        );
+    _doInitFuture();
+  }
+
+  Future<void> _doInitFuture() async {
+    try {
+      await Provider.of<PostsWithAdsProvider>(context, listen: false)
+          .setContents();
+    } on Exception catch (error) {
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text(error.toString()),
+          duration: Duration(milliseconds: 300),
+        ),
+      );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   @override

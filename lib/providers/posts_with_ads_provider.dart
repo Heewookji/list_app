@@ -68,15 +68,14 @@ class PostsWithAdsProvider extends ChangeNotifier {
           '&ord=desc&limit=${Constants.postLimit}'
           '&category[0]=${_category.index + 1}';
       final response = await http.get(url);
-      if (response.statusCode != 200)
-        throw HttpException('서버로부터 데이터를 받지 못했습니다');
+      if (response.statusCode != 200) throw HttpException();
       Map<String, dynamic> responseMap = json.decode(response.body);
       _postCurrentPage = responseMap['current_page'];
       _postLastPage = responseMap['last_page'];
       _posts = await _getPostsWithDetail(responseMap['data']);
     } on Exception catch (error) {
       if (error is HttpException) throw error;
-      throw PostException('포스트를 출력하는데 문제가 생겼습니다');
+      throw PostException();
     }
   }
 
@@ -85,8 +84,7 @@ class PostsWithAdsProvider extends ChangeNotifier {
       String url = 'https://problem.comento.kr/api/ads?page=0'
           '&limit=${Constants.adsLimit}';
       final response = await http.get(url);
-      if (response.statusCode != 200)
-        throw HttpException('서버로부터 데이터를 받지 못했습니다');
+      if (response.statusCode != 200) throw HttpException();
       Map<String, dynamic> responseMap = json.decode(response.body);
       _adsCurrentPage = responseMap['current_page'];
       _ads = (responseMap['data'] as List<dynamic>)
@@ -95,7 +93,7 @@ class PostsWithAdsProvider extends ChangeNotifier {
           .toList();
     } on Exception catch (error) {
       if (error is HttpException) throw error;
-      throw AdsException('광고를 출력하는데 문제가 생겼습니다');
+      throw AdsException();
     }
   }
 
@@ -106,15 +104,14 @@ class PostsWithAdsProvider extends ChangeNotifier {
           '&ord=desc&limit=${Constants.postLimit}'
           '&category[0]=${_category.index + 1}';
       final response = await http.get(url);
-      if (response.statusCode != 200)
-        throw HttpException('서버로부터 데이터를 받지 못했습니다');
+      if (response.statusCode != 200) throw HttpException();
       Map<String, dynamic> responseMap = json.decode(response.body);
       _postCurrentPage = responseMap['current_page'];
       _postLastPage = responseMap['last_page'];
       _posts.addAll(await _getPostsWithDetail(responseMap['data']));
     } on Exception catch (error) {
       if (error is HttpException) throw error;
-      throw PostException('포스트를 출력하는데 문제가 생겼습니다');
+      throw PostException();
     }
   }
 
@@ -125,8 +122,7 @@ class PostsWithAdsProvider extends ChangeNotifier {
           'https://problem.comento.kr/api/ads?page=${_adsCurrentPage + 1}'
           '&limit=${Constants.adsLimit}';
       final response = await http.get(url);
-      if (response.statusCode != 200)
-        throw HttpException('서버로부터 데이터를 받지 못했습니다');
+      if (response.statusCode != 200) throw HttpException();
       Map<String, dynamic> responseMap = json.decode(response.body);
       _adsCurrentPage = responseMap['current_page'];
       _ads.addAll((responseMap['data'] as List<dynamic>)
@@ -135,7 +131,7 @@ class PostsWithAdsProvider extends ChangeNotifier {
           .toList());
     } on Exception catch (error) {
       if (error is HttpException) throw error;
-      throw AdsException('광고를 출력하는데 문제가 생겼습니다');
+      throw AdsException();
     }
   }
 
@@ -144,8 +140,7 @@ class PostsWithAdsProvider extends ChangeNotifier {
       (dataMap) async {
         String url = 'https://problem.comento.kr/api/view?id=${dataMap['id']}';
         final response = await http.get(url);
-        if (response.statusCode != 200)
-          throw HttpException('서버로부터 데이터를 받지 못했습니다');
+        if (response.statusCode != 200) throw HttpException();
         dynamic detailDataMap = json.decode(response.body)['data'];
         dataMap['category'] = detailDataMap['category'];
         dataMap['user'] = detailDataMap['user'];
